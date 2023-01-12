@@ -16,12 +16,12 @@ class Exercise_1():
         self.steps = 10000
         self.spacing = self.range/self.steps
 
-        self.omegas_list = np.array([12, 18]) * 2 * np.pi # frequencies of waves
+        self.omegas_array = np.array([12, 18]) * 2 * np.pi # frequencies of waves
 
-        self.waves_list = np.array([wave(omega) for omega in self.omegas_list]) # np array of callables
+        self.waves_array = np.array([wave(omega) for omega in self.omegas_array]) # np array of callables
 
         self.times = np.linspace(self.lower_limit, self.upper_limit, self.steps)
-        self.position_space = np.sum(np.array([func(self.times) for func in self.waves_list]), axis=0)
+        self.position_space = np.sum(np.array([func(self.times) for func in self.waves_array]), axis=0)
 
         self.frequencies = np.fft.fftfreq(self.steps, self.spacing)
         self.frequency_space = np.abs(np.fft.fft(self.position_space))
