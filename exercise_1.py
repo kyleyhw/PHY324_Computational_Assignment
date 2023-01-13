@@ -1,12 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-class wave():
-    def __init__(self, omega):
+class Wave():
+    def __init__(self, amplitude, omega):
+        self.amplitude = amplitude
         self.omega = omega
 
     def __call__(self, t):
-        return np.sin(self.omega * t)
+        return self.amplitude * np.sin(self.omega * t)
 
 class Exercise_1():
     def __init__(self):
@@ -16,9 +17,9 @@ class Exercise_1():
         self.steps = 10000
         self.spacing = self.range/self.steps
 
-        self.omegas_array = np.array([12, 18]) * 2 * np.pi # frequencies of waves
+        self.parameters_array = np.array([(1., 12.), (2., 18.)]) * (1, 2 * np.pi) # np array of parameters with format (amplitude, frequency)
 
-        self.waves_array = np.array([wave(omega) for omega in self.omegas_array]) # np array of callables
+        self.waves_array = np.array([Wave(amplitude, omega) for (amplitude, omega) in self.parameters_array]) # np array of (callable) wave objects
 
         self.times = np.linspace(self.lower_limit, self.upper_limit, self.steps)
         self.position_space = np.sum(np.array([func(self.times) for func in self.waves_array]), axis=0)
@@ -38,4 +39,3 @@ class Exercise_1():
         if save:
             plt.savefig('exercise_1_plot.png')
         plt.close()
-
