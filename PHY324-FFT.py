@@ -96,8 +96,8 @@ in your report so you don'times have to cut-and-paste
 
 M=len(z2)
 freq=np.arange(M)  # frequency values, like time is the time values
-width=8  # width=2*sigma**2 where sigma is the standard deviation
-peak=12.3    # ideal value is approximately N/T1
+width=1 # 8  # width=2*sigma**2 where sigma is the standard deviation
+peak=N/T1 # 12.3    # ideal value is approximately N/T1
 
 filter_function=(np.exp(-(freq-peak)**2/width)+np.exp(-(freq+peak-M)**2/width))
 z_filtered=z2*filter_function
@@ -177,7 +177,7 @@ fig.subplots_adjust(hspace=0)
 ax1.set_ylim(-13,13)
 ax1.set_ylabel('Original Data')
 ax2.set_ylabel('Filtered Data')
-ax3.set_ylabel('Ideal Result')
+ax3.set_ylabel('Residuals')
 ax3.set_xlabel('Position-Time')
 
 if(save): plt.savefig('SingleWaveAndNoiseFFT.png',dpi=mydpi)

@@ -9,7 +9,14 @@ class Wave():
     def __call__(self, t):
         return self.amplitude * np.sin(self.omega * t)
 
-class Exercise_1():
+class Superpose():
+    def __init__(self, callables_array):
+        self.callables_array = callables_array
+
+    def __call__(self, x):
+        return np.sum(np.array([func(x) for func in self.callables_array]), axis=0)
+
+class Exercise1():
     def __init__(self):
         self.lower_limit = 0
         self.upper_limit = 1
@@ -22,7 +29,8 @@ class Exercise_1():
         self.waves_array = np.array([Wave(amplitude, omega) for (amplitude, omega) in self.parameters_array]) # np array of (callable) wave objects
 
         self.times = np.linspace(self.lower_limit, self.upper_limit, self.steps)
-        self.position_space = np.sum(np.array([func(self.times) for func in self.waves_array]), axis=0)
+        superpose_waves = Superpose(self.waves_array)
+        self.position_space = superpose_waves(self.times)
 
         self.frequencies = np.fft.fftfreq(self.steps, self.spacing)
         self.frequency_space = np.abs(np.fft.fft(self.position_space))

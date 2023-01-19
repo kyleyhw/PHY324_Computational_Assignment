@@ -21,14 +21,38 @@ object (an array) saved so it is pretty easy
 
 import matplotlib.pyplot as plt
 
-plt.plot(data_from_file)
-xmax=300
-plt.xlim(0,xmax)
-plt.show()
+# plt.plot(data_from_file)
+# xmax=len(data_from_file)
+# plt.xlim(0,xmax)
+# plt.show()
 
-number=len(data_from_file)
-message="There are " + \
-        str(number) + \
-        " data points in total, only drawing the first " + \
-        str(xmax)
-print(message)
+# number=len(data_from_file)
+# message="There are " + \
+#         str(number) + \
+#         " data points in total, only drawing the first " + \
+#         str(xmax)
+# print(message)
+
+
+
+
+
+"""
+added by Kyle:
+"""
+
+import numpy as np
+
+times = np.arange(0, len(data_from_file))
+fft = np.abs(np.fft.fft(data_from_file))
+freqs = np.fft.fftfreq(len(data_from_file), 1)
+
+# plt.plot(freqs, fft)
+# plt.show()
+
+
+for i,x in enumerate(fft):
+    if x > 2000:
+        print(freqs[i], x, i)
+
+
