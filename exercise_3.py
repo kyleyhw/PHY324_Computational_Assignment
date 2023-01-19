@@ -66,7 +66,7 @@ class Exercise3():
 
         self.filtered_data = filter(self.frequencies, self.amplitudes, self.filter_function).filtered_data
 
-        self.cleaned_positions = np.fft.ifft(self.filtered_data)
+        self.cleaned_positions = np.real(np.fft.ifft(self.filtered_data)) # ifft is real-valued, imaginary part is identically zero; np.real converts data type
 
         self.best_guess_parameters_array = np.array([(23.44, 0.059), (50.07, 0.077), (94.84, 0.143)]) * (1, 2*np.pi)# sine wave parameters in form (amplitude, frequency)
         self.best_guess_waves = np.array([Wave(*params) for params in self.best_guess_parameters_array])
